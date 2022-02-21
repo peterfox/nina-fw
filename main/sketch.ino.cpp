@@ -113,18 +113,11 @@ void setupBluetooth() {
 
   if (debug)  ets_printf("setup pins\n");
 
-#ifdef UNO_WIFI_REV2
-  uart_set_pin(UART_NUM_1, 1, 3, 33, 0); // TX, RX, RTS, CTS
-#elif defined(AIRLIFT)
   // TX GPIO1 & RX GPIO3 on ESP32 'hardware' UART
-  // RTS on ESP_BUSY (GPIO33)
-  // CTS on GPIO0 (GPIO0)
-  // uart_set_pin(UART_NUM_1, 22, 23, 33, 0);
-  uart_set_pin(UART_NUM_1, 1, 3, 33, 0);
-#else
-  uart_set_pin(UART_NUM_1, 23, 12, 18, 5);
-  uart_set_hw_flow_ctrl(UART_NUM_1, UART_HW_FLOWCTRL_CTS_RTS, 5);
-#endif
+  // RTS on GPIO22 (GPIO22)
+  // CTS on GPIO19 (GPIO19)
+  // redefine for the DevKit
+  uart_set_pin(UART_NUM_1, 1, 3, 22, 19);
 
   if (debug)  ets_printf("setup controller\n");
 
